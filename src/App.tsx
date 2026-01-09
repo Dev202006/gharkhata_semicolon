@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import CalendarView from "./pages/CalendarView";
-import AssetsLiabilities from "./pages/AssetsLiabilities";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import NotFound from "./pages/NotFound";
 
@@ -24,7 +23,6 @@ const App = () => {
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="calendar" element={<CalendarView />} />
-              <Route path="assets" element={<AssetsLiabilities />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

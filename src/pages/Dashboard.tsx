@@ -1,68 +1,103 @@
-import { Wallet, TrendingUp, TrendingDown, PiggyBank } from "lucide-react";
-import { SnapshotCard } from "@/components/dashboard/SnapshotCard";
-import { IncomeExpenseChart } from "@/components/dashboard/IncomeExpenseChart";
-import { ExpenseChart } from "@/components/dashboard/ExpenseChart";
-import { UpcomingObligations } from "@/components/dashboard/UpcomingObligations";
-import { GoalProgress } from "@/components/dashboard/GoalProgress";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+// Layer 1: Current Financial Position
+import { FinancialSnapshot } from "@/components/dashboard/layer1/FinancialSnapshot";
+import { AssetDistribution } from "@/components/dashboard/layer1/AssetDistribution";
+import { ActiveGoals } from "@/components/dashboard/layer1/ActiveGoals";
+import { StabilityIndicators } from "@/components/dashboard/layer1/StabilityIndicators";
+
+// Layer 2: Time-Based Performance
+import { TimeSelector } from "@/components/dashboard/layer2/TimeSelector";
+import { BudgetVsReality } from "@/components/dashboard/layer2/BudgetVsReality";
+import { ExpenseIntelligence } from "@/components/dashboard/layer2/ExpenseIntelligence";
+import { SavingsPerformance } from "@/components/dashboard/layer2/SavingsPerformance";
+import { CashFlowRhythm } from "@/components/dashboard/layer2/CashFlowRhythm";
+import { CommitmentsHealth } from "@/components/dashboard/layer2/CommitmentsHealth";
+
+// Layer 3: Mathematical Recommendations
+import { GoalFeasibility } from "@/components/dashboard/layer3/GoalFeasibility";
+import { IdealBudget } from "@/components/dashboard/layer3/IdealBudget";
+import { IncomeTarget } from "@/components/dashboard/layer3/IncomeTarget";
+import { ExpenseOptimization } from "@/components/dashboard/layer3/ExpenseOptimization";
+import { RiskWarnings } from "@/components/dashboard/layer3/RiskWarnings";
+import { NextActions } from "@/components/dashboard/layer3/NextActions";
 
 const Dashboard = () => {
+  const [timePeriod, setTimePeriod] = useState("monthly");
+
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div>
-        <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Your family's financial overview at a glance
-        </p>
-      </div>
+    <div className="space-y-8 pb-12">
+      {/* 🟢 LAYER 1: Current Financial Position */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="space-y-6"
+      >
+        <div>
+          <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-success" />
+            Current Financial Position
+          </h2>
+          <p className="text-sm text-muted-foreground">Where do we stand right now?</p>
+        </div>
 
-      {/* Snapshot Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <SnapshotCard
-          title="Current Balance"
-          value="₹2,45,800"
-          trend="up"
-          trendValue="+12%"
-          icon={<Wallet className="w-5 h-5" />}
-          delay={0}
-        />
-        <SnapshotCard
-          title="Total Income"
-          value="₹95,000"
-          trend="up"
-          trendValue="+5%"
-          icon={<TrendingUp className="w-5 h-5" />}
-          delay={0.1}
-        />
-        <SnapshotCard
-          title="Total Expenses"
-          value="₹72,400"
-          trend="down"
-          trendValue="-8%"
-          icon={<TrendingDown className="w-5 h-5" />}
-          delay={0.15}
-        />
-        <SnapshotCard
-          title="Net Savings"
-          value="₹22,600"
-          trend="up"
-          trendValue="+18%"
-          icon={<PiggyBank className="w-5 h-5" />}
-          delay={0.2}
-        />
-      </div>
+        <FinancialSnapshot />
+        <AssetDistribution />
+        <ActiveGoals />
+        <StabilityIndicators />
+      </motion.div>
 
-      {/* Charts Row */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <IncomeExpenseChart />
-        <ExpenseChart />
-      </div>
+      {/* 🔵 LAYER 2: Time-Based Performance */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="space-y-6"
+      >
+        <TimeSelector value={timePeriod} onChange={setTimePeriod} />
+        <BudgetVsReality />
+        
+        <div className="grid lg:grid-cols-2 gap-6">
+          <ExpenseIntelligence />
+          <SavingsPerformance />
+        </div>
+        
+        <div className="grid lg:grid-cols-2 gap-6">
+          <CashFlowRhythm />
+          <CommitmentsHealth />
+        </div>
+      </motion.div>
 
-      {/* Bottom Row */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <UpcomingObligations />
-        <GoalProgress />
-      </div>
+      {/* 🟣 LAYER 3: Mathematical Recommendations */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="space-y-6"
+      >
+        <div className="pt-6 border-t border-border">
+          <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-secondary" />
+            Recommendations
+          </h2>
+          <p className="text-sm text-muted-foreground">What should we change?</p>
+        </div>
+
+        <GoalFeasibility />
+        
+        <div className="grid lg:grid-cols-2 gap-6">
+          <IdealBudget />
+          <IncomeTarget />
+        </div>
+        
+        <div className="grid lg:grid-cols-2 gap-6">
+          <ExpenseOptimization />
+          <RiskWarnings />
+        </div>
+        
+        <NextActions />
+      </motion.div>
     </div>
   );
 };
